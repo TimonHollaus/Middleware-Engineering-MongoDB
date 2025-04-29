@@ -100,7 +100,30 @@ db.warehouses.find({  "products.productId": "4"
 }, { "products.$": 1 }).pretty()
 ```
 
-Example with adding a product [![Alternativtext](https://github.com/NicoFurtner/DEZSYS_GK862_DATAWAREHOUSE_ORM/raw/main/shellmongodb.png)](https://github.com/NicoFurtner/DEZSYS_GK862_DATAWAREHOUSE_ORM/blob/main/shellmongodb.png)
+
+
+##### Postrequest mit postman:
+
+Neues Warehouse hinzufügen
+Body -> raw -> json
+
+{
+"id": "warehouse3",
+  "products": [
+    {
+      "productId": "11",
+      "name": "Stuhl",
+      "category": "Möbel",
+      "quantity": 50
+    },
+    {
+      "productId": "12",
+      "name": "Lampe",
+      "category": "Beleuchtung",
+      "quantity": 75
+    }
+  ]
+}
 
 
 
