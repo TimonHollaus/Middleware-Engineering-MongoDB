@@ -46,8 +46,6 @@ Ich habe die Annotation `@Entity` durch `@Document` ersetzt, um meine Klassen mi
 
 - Durch `@Getter` und `@Setter` lasse ich automatisch Getter- und Setter-Methoden für alle Felder generieren.
 
-- Mit `@NoArgsConstructor` habe ich einen Konstruktor ohne Parameter erzeugt.
-
 - Mit `@AllArgsConstructor` einen Konstruktor mit Parametern für alle Felder.
 
 **Repository:**  
@@ -71,20 +69,22 @@ Ich habe die Produkte direkt in die Lagerdokumente (Warehouse) eingebettet, anst
 
 ```shell
 db.warehouses.update(    { _id: "warehouse1" },     
-{ $push: { products: { productId: "1000", name: "Trinkflasche", 
+{ $push: { products: { productId: "5000", name: "Trinkflasche", 
 category: "Drink", quantity: 1500, unit: "Trinken" } } })
 ```
 
 **Produkt löschen**
 
 ```shell
-db.warehouses.update(    { _id: "warehouse1" },    { $pull: { products: { productId: "00-123456" } } })
+db.warehouses.update(    { _id: "warehouse1" },
+    { $pull: { products: { productId: "1" } } })
 ```
 
 **Menge updaten**
 
 ```shell
-db.warehouses.update(    { _id: "warehouse1", "products.productId": "00-123456" },    { $set: { "products.$.quantity": 2000 } })
+db.warehouses.update(    { _id: "warehouse1", "products.productId": "2" },
+    { $set: { "products.$.quantity": 2000 } })
 ```
 
 **Alle produkte im warehouse getten**
@@ -99,8 +99,6 @@ db.warehouses.find({ _id: "warehouse1" }, { products: 1 })
 db.warehouses.find({  "products.productId": "4"
 }, { "products.$": 1 }).pretty()
 ```
-
-
 
 ##### Postrequest mit postman:
 
@@ -125,7 +123,20 @@ Body -> raw -> json
   ]
 }
 
+Neues Produkt in ein Warehosue hinzufügen
 
+http://localhost:8585/api/warehouses/warehouse1/products
+
+Body -> raw -> json
+
+{
+{
+"productId": "14",
+  "name": "Tischlampe",
+  "category": "Beleuchtung",
+  "quantity": 30
+}
+}
 
 
 
@@ -170,3 +181,9 @@ Body -> raw -> json
 - **A – Availability (Verfügbarkeit)**: Daten sind jederzeit verfügbar.
 
 - **P – Partition Tolerance (Partitionstoleranz)**: Das System funktioniert auch bei Netzwerkausfällen.
+
+
+
+
+
+![](C:\Users\timon\AppData\Roaming\marktext\images\2025-04-29-16-52-20-image.png)
